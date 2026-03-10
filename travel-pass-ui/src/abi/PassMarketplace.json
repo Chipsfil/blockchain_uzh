@@ -1,0 +1,377 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "PassMarketplace",
+  "sourceName": "contracts/PassMarketplace.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "initialOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "passFactoryAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newFactory",
+          "type": "address"
+        }
+      ],
+      "name": "PassFactoryUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "PassPriceSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "PassPurchased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "available",
+          "type": "bool"
+        }
+      ],
+      "name": "PassSaleStatusChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "RevenueWithdrawn",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPassSaleInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "available",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "passAvailableForSale",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "passFactory",
+      "outputs": [
+        {
+          "internalType": "contract IPassFactory",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "passPrices",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        }
+      ],
+      "name": "purchasePass",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "available",
+          "type": "bool"
+        }
+      ],
+      "name": "setPassAvailability",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newFactory",
+          "type": "address"
+        }
+      ],
+      "name": "setPassFactory",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "passTypeId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPassPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalRevenue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawRevenue",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "bytecode": "0x60803461015557601f6109d138819003918201601f19168301916001600160401b0383118484101761015957808492604094855283398101031261015557610052602061004b8361016d565b920161016d565b906001600160a01b0390811690811561013d575f549260018060a01b03199280848616175f558260405195167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a360017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00551690811561010c5781906001541617600155604051907fc93ffcc69ce1eca81750338a65a1eb6dc93db82d10250fdb59db97da957cc4a45f80a261084f90816101828239f35b62461bcd60e51b835260206004840152600c60248401526b5a65726f206164647265737360a01b6044840152606483fd5b604051631e4fbdf760e01b81525f6004820152602490fd5b5f80fd5b634e487b7160e01b5f52604160045260245ffd5b51906001600160a01b03821682036101555756fe6040608081526004908136101561002b575b50361561001c575f80fd5b61002734825461074c565b9055005b5f3560e01c806314462eda146105175780633316e9cb146104765780634f573cb21461036257806359f823181461033a5780636522088114610301578063715018a6146102aa578063815f592c1461027e5780638da5cb5b14610257578063a8f7b6ea146101ea578063bb5ed24114610193578063bf2d9e0b14610177578063c0b326b8146101505763f2fde38b03610011573461014c57602036600319011261014c576001600160a01b0382358181169391929084900361014c576100ef6107ee565b83156101365750505f54826bffffffffffffffffffffffff60a01b8216175f55167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a3005b905f6024925191631e4fbdf760e01b8352820152fd5b5f80fd5b503461014c57602036600319011261014c57602091355f5260028252805f20549051908152f35b503461014c575f36600319011261014c57602091549051908152f35b50903461014c578160031936011261014c5760207f1d4b1833fdfde4be3d2abe6cd024374774c48ab81dc26e689bcb9ea917df1f11913592602435906101d76107ee565b845f526002835281815f205551908152a2005b50903461014c578160031936011261014c5735906024359081151580920361014c577fc377def0936aa12866f6d90d9302e00a820c302190dfb7df4b73be9faa5edd14916020916102396107ee565b845f5260038352805f2060ff1981541660ff841617905551908152a2005b503461014c575f36600319011261014c575f5490516001600160a01b039091168152602090f35b503461014c57602036600319011261014c57602091355f526003825260ff815f20541690519015158152f35b3461014c575f36600319011261014c576102c26107ee565b5f80546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b50903461014c57602036600319011261014c57355f526002602052805f2054600360205260ff825f205416825191825215156020820152f35b503461014c575f36600319011261014c5760015490516001600160a01b039091168152602090f35b50903461014c575f36600319011261014c5761037c6107ee565b6103846107ac565b4790811561043a575f815560018060a01b03905f80808086868254165af16103aa61076d565b501561040557507f86a5cc8fe9af9ae68fb50f62885307a7755a30cbd290131644377f0bd94a7181916020915f54169351908152a260017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f0055005b606490602085519162461bcd60e51b8352820152600f60248201526e151c985b9cd9995c8819985a5b1959608a1b6044820152fd5b606490602084519162461bcd60e51b835282015260166024820152754e6f20726576656e756520746f20776974686472617760501b6044820152fd5b50903461014c57602036600319011261014c5780356001600160a01b038116929083900361014c576104a66107ee565b82156104e557600180546001600160a01b03191684179055827fc93ffcc69ce1eca81750338a65a1eb6dc93db82d10250fdb59db97da957cc4a45f80a2005b906020606492519162461bcd60e51b8352820152600c60248201526b5a65726f206164647265737360a01b6044820152fd5b506020908160031936011261014c578235926105316107ac565b835f526003835260ff825f205416156106e057835f5260028352815f20548034106106a75760015483516301935c1360e31b81523384820152602481018790529495908690869060449082905f906001600160a01b03165af194851561069d575f9561066e575b506105a434845461074c565b83558484513481527fbf5b10046d2330af4284944342e5265071d3a2a1e507eb2b4c648a145404820a883392a4803411610605575b505060017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f005551908152f35b340334811161065b575f80808093335af161061e61076d565b501561062a57806105d9565b83606492519162461bcd60e51b8352820152600d60248201526c1499599d5b990819985a5b1959609a1b6044820152fd5b601182634e487b7160e01b5f525260245ffd5b9094508581813d8311610696575b6106868183610716565b8101031261014c5751935f610598565b503d61067c565b84513d5f823e3d90fd5b5082606492519162461bcd60e51b83528201526014602482015273125b9cdd59999a58da595b9d081c185e5b595b9d60621b6044820152fd5b82606492519162461bcd60e51b8352820152601260248201527150617373206e6f7420617661696c61626c6560701b6044820152fd5b90601f8019910116810190811067ffffffffffffffff82111761073857604052565b634e487b7160e01b5f52604160045260245ffd5b9190820180921161075957565b634e487b7160e01b5f52601160045260245ffd5b3d156107a7573d9067ffffffffffffffff8211610738576040519161079c601f8201601f191660200184610716565b82523d5f602084013e565b606090565b7f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f0060028154146107dc5760029055565b604051633ee5aeb560e01b8152600490fd5b5f546001600160a01b0316330361080157565b60405163118cdaa760e01b8152336004820152602490fdfea2646970667358221220164fbe73081ba7e45d7ed09de51c59a318aae9502fb15937b93582630476ac6064736f6c63430008190033",
+  "deployedBytecode": "0x6040608081526004908136101561002b575b50361561001c575f80fd5b61002734825461074c565b9055005b5f3560e01c806314462eda146105175780633316e9cb146104765780634f573cb21461036257806359f823181461033a5780636522088114610301578063715018a6146102aa578063815f592c1461027e5780638da5cb5b14610257578063a8f7b6ea146101ea578063bb5ed24114610193578063bf2d9e0b14610177578063c0b326b8146101505763f2fde38b03610011573461014c57602036600319011261014c576001600160a01b0382358181169391929084900361014c576100ef6107ee565b83156101365750505f54826bffffffffffffffffffffffff60a01b8216175f55167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a3005b905f6024925191631e4fbdf760e01b8352820152fd5b5f80fd5b503461014c57602036600319011261014c57602091355f5260028252805f20549051908152f35b503461014c575f36600319011261014c57602091549051908152f35b50903461014c578160031936011261014c5760207f1d4b1833fdfde4be3d2abe6cd024374774c48ab81dc26e689bcb9ea917df1f11913592602435906101d76107ee565b845f526002835281815f205551908152a2005b50903461014c578160031936011261014c5735906024359081151580920361014c577fc377def0936aa12866f6d90d9302e00a820c302190dfb7df4b73be9faa5edd14916020916102396107ee565b845f5260038352805f2060ff1981541660ff841617905551908152a2005b503461014c575f36600319011261014c575f5490516001600160a01b039091168152602090f35b503461014c57602036600319011261014c57602091355f526003825260ff815f20541690519015158152f35b3461014c575f36600319011261014c576102c26107ee565b5f80546001600160a01b0319811682556001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b50903461014c57602036600319011261014c57355f526002602052805f2054600360205260ff825f205416825191825215156020820152f35b503461014c575f36600319011261014c5760015490516001600160a01b039091168152602090f35b50903461014c575f36600319011261014c5761037c6107ee565b6103846107ac565b4790811561043a575f815560018060a01b03905f80808086868254165af16103aa61076d565b501561040557507f86a5cc8fe9af9ae68fb50f62885307a7755a30cbd290131644377f0bd94a7181916020915f54169351908152a260017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f0055005b606490602085519162461bcd60e51b8352820152600f60248201526e151c985b9cd9995c8819985a5b1959608a1b6044820152fd5b606490602084519162461bcd60e51b835282015260166024820152754e6f20726576656e756520746f20776974686472617760501b6044820152fd5b50903461014c57602036600319011261014c5780356001600160a01b038116929083900361014c576104a66107ee565b82156104e557600180546001600160a01b03191684179055827fc93ffcc69ce1eca81750338a65a1eb6dc93db82d10250fdb59db97da957cc4a45f80a2005b906020606492519162461bcd60e51b8352820152600c60248201526b5a65726f206164647265737360a01b6044820152fd5b506020908160031936011261014c578235926105316107ac565b835f526003835260ff825f205416156106e057835f5260028352815f20548034106106a75760015483516301935c1360e31b81523384820152602481018790529495908690869060449082905f906001600160a01b03165af194851561069d575f9561066e575b506105a434845461074c565b83558484513481527fbf5b10046d2330af4284944342e5265071d3a2a1e507eb2b4c648a145404820a883392a4803411610605575b505060017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f005551908152f35b340334811161065b575f80808093335af161061e61076d565b501561062a57806105d9565b83606492519162461bcd60e51b8352820152600d60248201526c1499599d5b990819985a5b1959609a1b6044820152fd5b601182634e487b7160e01b5f525260245ffd5b9094508581813d8311610696575b6106868183610716565b8101031261014c5751935f610598565b503d61067c565b84513d5f823e3d90fd5b5082606492519162461bcd60e51b83528201526014602482015273125b9cdd59999a58da595b9d081c185e5b595b9d60621b6044820152fd5b82606492519162461bcd60e51b8352820152601260248201527150617373206e6f7420617661696c61626c6560701b6044820152fd5b90601f8019910116810190811067ffffffffffffffff82111761073857604052565b634e487b7160e01b5f52604160045260245ffd5b9190820180921161075957565b634e487b7160e01b5f52601160045260245ffd5b3d156107a7573d9067ffffffffffffffff8211610738576040519161079c601f8201601f191660200184610716565b82523d5f602084013e565b606090565b7f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f0060028154146107dc5760029055565b604051633ee5aeb560e01b8152600490fd5b5f546001600160a01b0316330361080157565b60405163118cdaa760e01b8152336004820152602490fdfea2646970667358221220164fbe73081ba7e45d7ed09de51c59a318aae9502fb15937b93582630476ac6064736f6c63430008190033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/PassMarketplace.sol",
+  "buildInfoId": "solc-0_8_25-07ff7192a761ceedd6331b5698542d27b290fb3f"
+}
