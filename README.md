@@ -1,9 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
 # TravelPass: Rethinking City Mobility Through Blockchain
 
 ## From Fragmented Tickets to a Unified NFT-Based Travel Pass
